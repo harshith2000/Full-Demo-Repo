@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Staging Stack Management</title>
+</head>
+<body>
+<div align="center">
+    <h1> List Of Instances</h1>
+    <a href="createInstance">Create New Instance</a>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <form action="#" th:action="@{/submit}" th:object="${instance}" method="get">
+        <tr>
+            <td> Instance Name</td>
+            <td><input type="text" th:field="*{instance_name}"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button type="submit">Submit</button> </td>
+        </tr>
+        </table>
+    </form>
+    <br/><br/><br/><br/><br/>
+
+    <table border="1" cellpadding="15">
+        <thead>
+        <tr>
+            <th>Instance ID</th>
+            <th>Instance Name</th>
+            <th>Instance State</th>
+            <th>Update Instance State</th>
+            <th>Delete Instance</th>
+            <th>View Instance Usage History</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="instance : ${instances}">
+            <td th:text="${instance.instance_id}">Instance ID</td>
+            <td th:text="${instance.instance_name}">Instance Name</td>
+            <td th:text="${instance.instance_state}">Instance State</td>
+            <td> <a th:href="${'updateInstanceState/' + instance.instance_id}">Update State</a></td>
+            <td> <a th:href="${'deleteInstance/' + instance.instance_id}">Delete</a></td>
+            <td> <a th:href="${'getInstanceUsageById/' + instance.instance_id}">View Use History</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <br/><br/><br/><br/>
+    <a href="getInstanceUsages"> View All Instance Usages</a>
+</div>
+
+</body>
+</html>

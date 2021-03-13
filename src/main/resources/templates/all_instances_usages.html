@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Instance Usage</title>
+</head>
+<body>
+<div align="center">
+    <h1>History of All Instances Usages</h1>
+    <br/><br/><br/>
+    <table border="1" cellpadding="15">
+        <thead>
+        <tr>
+            <th>Instance ID</th>
+            <th>Employee Id</th>
+            <th>Employee Name</th>
+            <th>Purpose</th>
+            <th>Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="instanceusage : ${instancesUsages}">
+            <td th:text="${instanceusage.instance_id}">Instance ID</td>
+            <td th:text="${instanceusage.employee_id}">Employee ID</td>
+            <td th:text="${instanceusage.employee_name}">Employee Name</td>
+            <td th:text="${instanceusage.purpose}">Purpose</td>
+            <td th:text="${instanceusage.time}">Time</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

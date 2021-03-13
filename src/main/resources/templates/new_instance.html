@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Instance</title>
+</head>
+<body>
+<div align="center">
+    <h1>Create New Instance</h1>
+    <br/><br/>
+    <form action="#" th:action="@{/save}" th:object="${instance}" method="post">
+        <table border="0.5" cellpadding="15">
+            <tr>
+                <td> Instance Id</td>
+                <td><input type="number" th:field="*{instance_id}" placeholder="Enter Instance number"></td>
+            </tr>
+            <tr>
+                <td> Instance Name</td>
+                <td><input type="text" th:field="*{instance_name}" placeholder="Enter Instance Name"></td>
+            </tr>
+            <tr>
+                <td> Instance State</td>
+                <td><input type="text" th:field="*{instance_state}"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit">Save</button> </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>
