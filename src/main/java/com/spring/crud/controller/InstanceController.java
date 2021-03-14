@@ -87,9 +87,11 @@ public class InstanceController {
         return instanceUsageRepository.findAll(pageable);
     }
 
-    @RequestMapping (value = "/getInstanceUsageByLimit/{id}/{limit}", method = RequestMethod.GET)
-    public List<InstanceUsage> getInstanceUsageByLimit(@PathVariable int id, @PathVariable int limit){
-        return instanceUsageRepository.findAllByInstanceIdLimit(id,limit);
+    @RequestMapping (value = "/getInstanceUsageById/{id}/{limit}", method = RequestMethod.GET)
+    public String getInstanceUsageById(@PathVariable int id, @PathVariable int limit, Model model){
+        List<InstanceUsage> instanceUsages =  instanceUsageRepository.findAllByInstanceIdLimit(id,limit);
+        model.addAttribute("instanceUsages",instanceUsages);
+        return "instance_usages";
     }
 
     @RequestMapping("/deleteInstance/{id}")
