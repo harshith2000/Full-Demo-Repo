@@ -54,6 +54,12 @@ public class InstanceController {
         instanceRepository.saveAndFlush(instance);
         return "redirect:/";
     }
+    @RequestMapping(value = "/enter", method = RequestMethod.POST)
+    public String saveInstance(@ModelAttribute("instanceUsage") InstanceUsage instanceUsage){
+        instanceUsage.setTime(LocalDateTime.now());
+        instanceUsageRepository.saveAndFlush(instanceUsage);
+        return "redirect:/";
+    }
 
     @RequestMapping(value = "/submit", method = RequestMethod.GET)
     public String getInstanceByName(@ModelAttribute("instance") Instance instance, Model model){
@@ -70,25 +76,20 @@ public class InstanceController {
         return "all_instances_usages";
     }
 
-    @GetMapping("/getInstanceById/{id}")
-    public Instance getInstanceById(@PathVariable int id){
-        return instanceRepository.findById(id).orElse(null);
-    }
-
-    @RequestMapping("/getInstanceUsageById/{id}")
+    /*@RequestMapping("/getInstanceUsageById/{id}")
     public String getInstanceUsageById(@PathVariable int id, Model model){
         List<InstanceUsage> instanceUsages = instanceUsageRepository.findAllByInstanceId(id);
         model.addAttribute("instanceUsages",instanceUsages);
         return "instance_usages";
-    }
+    }*/
 
     @GetMapping("/getPage")
     public Page<InstanceUsage> getPage(Pageable pageable){
         return instanceUsageRepository.findAll(pageable);
     }
 
-    @RequestMapping (value = "/getInstanceUsageById/{id}/{limit}", method = RequestMethod.GET)
-    public String getInstanceUsageById(@PathVariable int id, @PathVariable int limit, Model model){
+    @RequestMapping (value = "/getInstanceUsageById/{id}")
+    public String getInstanceUsageByIdd(@RequestParam(defaultValue = "10") Integer limit, @PathVariable int id, Model model){
         List<InstanceUsage> instanceUsages =  instanceUsageRepository.findAllByInstanceIdLimit(id,limit);
         model.addAttribute("instanceUsages",instanceUsages);
         return "instance_usages";
@@ -101,25 +102,15 @@ public class InstanceController {
     }
 
     @RequestMapping("/updateInstanceState/{id}")
-    public String updateInstance(@PathVariable int id){
+    public String updateInstance(@PathVariable int id, Model model){
         Instance existingInstance = instanceRepository.findById(id).orElse(null);
         Instance tempInstance = existingInstance;
         tempInstance.setInstance_state(!existingInstance.isInstance_state());
         BeanUtils.copyProperties(tempInstance,existingInstance);
-        if(existingInstance.isInstance_state()){
-            if(existingInstance!=null){
-                InstanceUsage inst = new InstanceUsage(existingInstance.getInstance_id(), 1,"Sai","In", LocalDateTime.now());
-                instanceUsageRepository.save(inst);
-            }
-        }
-        else{
-            if(existingInstance!=null){
-                InstanceUsage inst = new InstanceUsage(existingInstance.getInstance_id(), 1,"Sai","Out", LocalDateTime.now());
-                instanceUsageRepository.save(inst);
-            }
-        }
-        instanceRepository.save(existingInstance);
-        return "redirect:/";
+        instanceRepository.saveAndFlush(existingInstance);
+        InstanceUsage instanceUsage = new InstanceUsage();
+        model.addAttribute("instanceUsage",instanceUsage);
+        return "new_instance_usage";
 
     }
 

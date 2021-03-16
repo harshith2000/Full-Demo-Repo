@@ -72,10 +72,10 @@
         <tr class="active-row" th:each="instance : ${instances}">
             <td th:text="${instance.instance_id}">Instance ID</td>
             <td th:text="${instance.instance_name}">Instance Name</td>
-            <td th:text="${instance.instance_state}">Instance State</td>
-            <td> <a th:href="${'updateInstanceState/' + instance.instance_id}">Update State</a></td>
+            <td th:text="${instance.instance_state}?'In Use':'Free'">Instance State</td>
+            <td> <a th:href="${'updateInstanceState/' + instance.instance_id}">Use or Release Instance</a></td>
             <td> <a th:href="${'deleteInstance/' + instance.instance_id}">Delete</a></td>
-            <td> <a th:href="${'getInstanceUsageById/' + instance.instance_id}">View Use History</a></td>
+            <td> <a th:href="${'getInstanceUsageById/' + instance.instance_id}">View Instance Use History</a></td>
         </tr>
         </tbody>
     </table>

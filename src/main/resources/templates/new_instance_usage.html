@@ -42,22 +42,26 @@
 <div align="center">
     <h1>Create New Instance</h1>
     <br/><br/>
-    <form action="#" th:action="@{/save}" th:object="${instance}" method="post">
+    <form action="#" th:action="@{/enter}" th:object="${instanceUsage}" method="post">
         <table class="styled-table" border="0.5" cellpadding="15">
             <tr>
-                <td> Instance Id</td>
-                <td><input type="text" th:field="*{instance_id}" placeholder="Enter Instance number"></td>
+                <td> Instance Id </td>
+                <td><input type="text" th:field="*{instance_id}" placeholder="Enter Instance Id"></td>
             </tr>
             <tr>
-                <td> Instance Name</td>
-                <td><input type="text" th:field="*{instance_name}" placeholder="Enter Instance Name"></td>
+                <td> Employee Id </td>
+                <td><input type="text" th:field="*{employee_id}" placeholder="Enter Employee Id"></td>
             </tr>
             <tr>
-                <td> Instance State</td>
-                <td><input type="text" th:field="*{instance_state}"></td>
+                <td> Employee Name </td>
+                <td><input type="text" th:field="*{employee_name}" placeholder="Enter Employee Name"></td>
             </tr>
             <tr>
-                <td colspan="2"><button type="submit">Save</button> </td>
+                <td> Purpose </td>
+                <td><input type="text" th:field="*{purpose}" placeholder="Enter Purpose"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit">Enter</button> </td>
             </tr>
         </table>
     </form>
